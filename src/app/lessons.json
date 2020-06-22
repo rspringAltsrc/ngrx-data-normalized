@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "description": "Angular Tutorial For Beginners - Build Your First App - Hello World Step By Step",
+    "duration": "4:17",
+    "seqNo": 1,
+    "course": {
+      "id": 4,
+      "description": "NgRx (with NgRx Data) - The Complete Guide",
+      "longDescription": "Learn the modern Ngrx Ecosystem, including NgRx Data, Store, Effects, Router Store, Ngrx Entity, and Dev Tools.",
+      "iconUrl": "https: //angular-university.s3-us-west-1.amazonaws.com/course-images/ngrx-v2.png",
+      "category": "BEGINNER",
+      "lessonsCount": 10,
+      "seqNo": 0,
+      "url": "ngrx-course"
+    },
+    "author": {
+      "name": "Ron",
+      "id": 345
+    }
+  },
+  {
+    "id": 2,
+    "description": "Building Your First  Component - Component Composition",
+    "duration": "2:07",
+    "seqNo": 2,
+    "course": {
+      "id": 2,
+      "description": "Angular Core Deep Dive",
+      "longDescription": "A detailed walk-through of the most important part of Angular - the Core and Common modules",
+      "iconUrl": "https: //s3-us-west-1.amazonaws.com/angular-university/course-images/angular-core-in-depth-small.png",
+      "lessonsCount": 10,
+      "category": "BEGINNER",
+      "seqNo": 1,
+      "url": "angular-core-course"
+    },
+    "author": {
+      "name": "Sara",
+      "id": 645654
+    }
+  },
+  {
+    "id": 3,
+    "description": "Component @Input - How To Pass Input Data To an  Component",
+    "duration": "2:33",
+    "seqNo": 3,
+    "course": {
+      "id": 2,
+      "description": "Angular Core Deep Dive",
+      "longDescription": "A detailed walk-through of the most important part of Angular - the Core and Common modules",
+      "iconUrl": "https: //s3-us-west-1.amazonaws.com/angular-university/course-images/angular-core-in-depth-small.png",
+      "lessonsCount": 10,
+      "category": "BEGINNER",
+      "seqNo": 1,
+      "url": "angular-core-course"
+    },
+    "author": {
+      "name": "John",
+      "id": 666
+    }
+  },
+  {
+    "id": 4,
+    "description": " Component Events - Using @Output to create custom events",
+    "duration": "4:44",
+    "seqNo": 4,
+    "course": {
+      "id": 4,
+      "description": "NgRx (with NgRx Data) - The Complete Guide",
+      "longDescription": "Learn the modern Ngrx Ecosystem, including NgRx Data, Store, Effects, Router Store, Ngrx Entity, and Dev Tools.",
+      "iconUrl": "https: //angular-university.s3-us-west-1.amazonaws.com/course-images/ngrx-v2.png",
+      "category": "BEGINNER",
+      "lessonsCount": 10,
+      "seqNo": 0,
+      "url": "ngrx-course"
+    },
+    "author": {
+      "name": "Julie",
+      "id": 55
+    }
+  }
+]
