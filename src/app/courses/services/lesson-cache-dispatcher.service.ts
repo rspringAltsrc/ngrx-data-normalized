@@ -24,7 +24,7 @@ export class LessonCacheDispatcherService {
       id: 234234
     },
     description: 'How to dispatch data',
-    duration: 'until it ends',
+    duration: '1:10',
     seqNo: 1
   } as Lesson).pipe(delay(7000));
 

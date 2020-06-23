@@ -23,7 +23,8 @@ import {
   EntityDataService,
   EntityDefinitionService,
   EntityCacheEffects,
-  EntityEffects
+  EntityEffects,
+  EntityServices
 } from "@ngrx/data";
 
 import { CourseEntityService } from "./services/course-entity.service";
@@ -34,6 +35,8 @@ import { CourseCacheDispatcherService } from "./services/course-cache-dispatcher
 import { LessonCacheDispatcherService } from './services/lesson-cache-dispatcher.service';
 import { CourseEntityEffects } from './services/course-entity.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { AppEntityServices } from './services/app-entity-services';
+import { CourseSelectors } from './services/course-entity.selectors';
 
 export const coursesRoutes: Routes = [
   {
@@ -77,7 +80,10 @@ export const coursesRoutes: Routes = [
   providers: [
     CourseEntityService,
     LessonEntityService,
-    CoursesDataService
+    CoursesDataService,
+    AppEntityServices,
+    CourseSelectors,
+    { provide: EntityServices, useExisting: AppEntityServices }
   ]
 })
 export class CoursesModule {

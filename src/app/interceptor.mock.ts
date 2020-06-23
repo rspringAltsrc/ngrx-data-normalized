@@ -9,7 +9,6 @@ import {
 import { Observable, of } from "rxjs";
 import * as lessons from "./lessons.json";
 import * as courses from "./courses.json";
-import { delay } from "rxjs/operators";
 
 const urls = [
   {
@@ -24,7 +23,6 @@ const urls = [
 
 @Injectable()
 export class HttpMockRequestInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -37,7 +35,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
           .replace(/(\/)$/, "")
           .endsWith(element.url)
       ) {
-        console.log("Loaded from json : " + request.url);
+        console.log(`Loaded from json : ${request.urlWithParams}`);
         return of(
           new HttpResponse({
             status: 200,

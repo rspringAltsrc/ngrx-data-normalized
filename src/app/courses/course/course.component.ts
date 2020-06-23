@@ -5,16 +5,21 @@ import {
 } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Course } from "../model/course";
-import { Observable } from "rxjs";
+import { Observable, merge } from "rxjs";
 import { Lesson } from "../model/lesson";
 import {
   delay,
   map,
   tap,
-  withLatestFrom
+  withLatestFrom,
+  combineLatest,
+  scan
 } from "rxjs/operators";
 import { CourseEntityService } from "../services/course-entity.service";
 import { LessonEntityService } from "../services/lesson-entity.service";
+import { CourseSelectors } from '../services/course-entity.selectors';
+import { Store } from '@ngrx/store';
+import { AppEntityServices } from '../services/app-entity-services';
 
 @Component({
   selector: "course",
@@ -23,49 +28,44 @@ import { LessonEntityService } from "../services/lesson-entity.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseComponent implements OnInit {
-  course$: Observable<Course>;
+  courseUrl = this.route.snapshot.paramMap.get("courseUrl");
 
-  loading$: Observable<boolean>;
+  course$ = this.courseSelectors.selectCourseByUrl$(this.courseUrl).pipe(
+    tap(c => {
+      if (this.nextPage == 0) {
+        this.loadLessonsPage(c);
+      }
+    })
+  );
 
-  lessons$: Observable<Lesson[]>;
+  loading$ = merge(
+    this.appService.lessonService.loading$,
+    this.appService.courseService.loading$
+  ).pipe(
+    scan((a, c) => a && c, false));
+
+  lessons$ = this.courseSelectors.selectDenormalizedCourse$(this.courseUrl);
 
   displayedColumns = ["seqNo", "description", "duration", "author"];
 
   nextPage = 0;
 
   constructor(
-    private coursesService: CourseEntityService,
-    private lessonsService: LessonEntityService,
+    private courseSelectors: CourseSelectors,
+    private appService: AppEntityServices,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    const courseUrl = this.route.snapshot.paramMap.get("courseUrl");
-
-    this.course$ = this.coursesService.entities$.pipe(
-      map(courses => courses.find(course => course.url == courseUrl))
-    );
-
-    this.lessons$ = this.lessonsService.entities$.pipe(
-      withLatestFrom(this.course$),
-      tap(([, course]) => {
-        if (this.nextPage == 0) {
-          this.loadLessonsPage(course);
-        }
-      }),
-      map(([lessons, course]) =>
-        lessons.filter(lesson => lesson.course.id == course.id)
-      )
-    );
-
-    this.loading$ = this.lessonsService.loading$.pipe(delay(0));
+    // This would be handled with a component effect
+    this.appService.courseService.getWithQuery({ url: this.courseUrl });
   }
 
   loadLessonsPage(course: Course) {
-    this.lessonsService.getWithQuery({
-      courseId: course.id.toString(),
+    this.appService.lessonService.getWithQuery({
+      courseId: course?.id.toString(),
       pageNumber: this.nextPage.toString(),
-      pageSize: "3"
+      pageSize: "1"
     });
 
     this.nextPage += 1;

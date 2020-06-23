@@ -7,6 +7,7 @@ import {
 import { CourseEntityName } from "../course-entity.metadata";
 import { of, Subscription, Observable } from "rxjs";
 import { delay } from "rxjs/operators";
+import { INormalizedCourses } from './course-entity.service';
 
 @Injectable({
   providedIn: "root"
@@ -20,6 +21,7 @@ export class CourseCacheDispatcherService {
     url: 'hello-world',
     description: "Hello world",
     longDescription: "This was just (simulated) pushed from SignalR",
+    lessons: [9764],
     id: 234234
   } as Course).pipe(delay(5000));
 

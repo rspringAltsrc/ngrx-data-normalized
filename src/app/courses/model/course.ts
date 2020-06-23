@@ -11,8 +11,9 @@ export interface Course {
   category: string;
   lessonsCount?: number;
   promo?: boolean;
-  lessons?: Lesson[]
+  lessons?: Lesson[] & number[]
 }
+
 
 
 export function compareCourses(c1: Course, c2: Course) {

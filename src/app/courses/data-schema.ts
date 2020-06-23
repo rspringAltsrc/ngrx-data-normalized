@@ -9,7 +9,23 @@ export const usersKey = 'users';
 
 const course = new schema.Entity<Course>(coursesKey);
 const courses = new schema.Array<Course>(course);
-const lesson = new schema.Entity<Lesson>(lessonsKey);
+
+const lesson = new schema.Entity<Lesson>(lessonsKey, {},
+    {
+        fallbackStrategy: (key) => {
+            return {
+                id: key,
+                seqNo: 0,
+                name: 'lesson not found',
+                description: 'lesson not found in relational data',
+                duration: null,
+                author: {
+                    id: null,
+                    name: 'author not found'
+                }
+            }
+        }
+    });
 const lessons = new schema.Array<Lesson>(lesson);
 const user = new schema.Entity<User>(usersKey);
 const users = new schema.Array<User>(user);
