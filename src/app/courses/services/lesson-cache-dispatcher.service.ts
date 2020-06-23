@@ -1,35 +1,40 @@
 import { Injectable } from "@angular/core";
-import { Course } from "../model/course";
 import {
   EntityDispatcherFactory,
   EntityDispatcher
 } from "@ngrx/data";
-import { CourseEntityName } from "../course-entity.metadata";
+import { LessonEntityName } from "../course-entity.metadata";
 import { of, Subscription, Observable } from "rxjs";
 import { delay } from "rxjs/operators";
+import { Lesson } from '../model/lesson';
 
 @Injectable({
   providedIn: "root"
 })
-export class CourseCacheDispatcherService {
-  courseDispatcher: EntityDispatcher<Course>;
+export class LessonCacheDispatcherService {
+  lessonDispatcher: EntityDispatcher<Lesson>;
   subscriptions = new Subscription();
 
-  mockSignalRBroadcast: Observable<Course> = of({
-    category: "lala",
-    url: 'hello-world',
-    description: "Hello world",
-    longDescription: "This was just (simulated) pushed from SignalR",
-    id: 234234
-  } as Course).pipe(delay(5000));
+  mockSignalRBroadcast: Observable<Lesson> = of({
+    id: 9764,
+    author: {
+      id: 9999
+    },
+    course: {
+      id: 234234
+    },
+    description: 'How to dispatch data',
+    duration: 'until it ends',
+    seqNo: 1
+  } as Lesson).pipe(delay(7000));
 
   constructor(readonly entityDispatcherFactory: EntityDispatcherFactory) {
-    this.courseDispatcher = entityDispatcherFactory.create(CourseEntityName);
+    this.lessonDispatcher = entityDispatcherFactory.create(LessonEntityName);
   }
 
   subscribeToSignalRUpdates(): void {
     const addOne = this.mockSignalRBroadcast.subscribe(e => {
-      this.courseDispatcher.addOneToCache(e);
+      this.lessonDispatcher.addOneToCache(e);
     });
 
     this.subscriptions.add(addOne);

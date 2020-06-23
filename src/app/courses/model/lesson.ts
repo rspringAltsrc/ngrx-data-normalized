@@ -3,23 +3,23 @@ import { User } from "./user";
 
 
 export interface Lesson {
-    id: number;
-    description: string;
-    duration: string;
-    seqNo: number;
-    course: Course;
-    author: User;
+  id: number;
+  description: string;
+  duration: string;
+  seqNo: number;
+  course?: Course;
+  author: User;
 }
 
 
-export function compareLessons(l1:Lesson, l2: Lesson) {
+export function compareLessons(l1: Lesson, l2: Lesson) {
 
-  const compareCourses = l1.course.id - l2.course.id;
+  const compareCourses = l1.course?.id - l2.course?.id;
 
   if (compareCourses > 0) {
     return 1;
   }
-  else if (compareCourses < 0){
+  else if (compareCourses < 0) {
     return -1;
   }
   else {

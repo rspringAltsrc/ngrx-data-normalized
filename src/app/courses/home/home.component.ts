@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { map, tap, filter, first } from 'rxjs/operators';
 import { CourseEntityService } from '../services/course-entity.service';
+import { LessonEntityService } from '../services/lesson-entity.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { CourseEntityService } from '../services/course-entity.service';
 export class HomeComponent {
 
   courses$ = this.coursesService.entities$;
+  lessons$ = this.lessonsService.entities$;
 
   loaded$ = this.coursesService.loaded$.pipe(
     tap(loaded => {
@@ -27,7 +29,8 @@ export class HomeComponent {
   )
 
   constructor(
-    private coursesService: CourseEntityService) {
+    private coursesService: CourseEntityService,
+    private lessonsService: LessonEntityService) {
   }
 
   addPrefilledCourse() {

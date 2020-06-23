@@ -76,7 +76,10 @@
     },
     "author": {
       "name": "Julie",
-      "id": 55
+      "id": 55,
+      "course": {
+        "id": 234234
+      }
     }
   }
 ]

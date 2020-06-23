@@ -20,10 +20,11 @@ import { RouterState, StoreRouterConnectingModule } from "@ngrx/router-store";
 import { EffectsModule } from "@ngrx/effects";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { reducers } from "./reducers";
-import { EntityDataModule } from "@ngrx/data";
+import { EntityDataModule, EntityCacheEffects, EntityEffects } from "@ngrx/data";
 
 import { HttpRequestInterceptor } from "./interceptor";
 import { HttpMockRequestInterceptor } from "./interceptor.mock";
+import { CourseEntityEffects } from './courses/services/course-entity.effects';
 
 const routes: Routes = [
   {
@@ -80,4 +81,4 @@ const routes: Routes = [
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

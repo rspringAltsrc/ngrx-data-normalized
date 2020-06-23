@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HomeComponent } from "./home/home.component";
 import { CoursesCardListComponent } from "./courses-card-list/courses-card-list.component";
-import { CoursesHttpService } from "./services/courses-http.service";
 import { CourseComponent } from "./course/course.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -23,16 +22,18 @@ import { RouterModule, Routes } from "@angular/router";
 import {
   EntityDataService,
   EntityDefinitionService,
-  EntityMetadataMap
+  EntityCacheEffects,
+  EntityEffects
 } from "@ngrx/data";
-import { compareCourses, Course } from "./model/course";
 
-import { compareLessons, Lesson } from "./model/lesson";
 import { CourseEntityService } from "./services/course-entity.service";
 import { CoursesDataService } from "./services/courses-data.service";
 import { LessonEntityService } from "./services/lesson-entity.service";
 import { courseEntityMetadata, CourseEntityName } from "./course-entity.metadata";
 import { CourseCacheDispatcherService } from "./services/course-cache-dispatcher.service";
+import { LessonCacheDispatcherService } from './services/lesson-cache-dispatcher.service';
+import { CourseEntityEffects } from './services/course-entity.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 export const coursesRoutes: Routes = [
   {
@@ -74,7 +75,6 @@ export const coursesRoutes: Routes = [
   declarations: [HomeComponent, CoursesCardListComponent, CourseComponent],
   exports: [HomeComponent, CoursesCardListComponent, CourseComponent],
   providers: [
-    CoursesHttpService,
     CourseEntityService,
     LessonEntityService,
     CoursesDataService
@@ -82,15 +82,17 @@ export const coursesRoutes: Routes = [
 })
 export class CoursesModule {
   constructor(
-    private eds: EntityDefinitionService,
-    private entityDataService: EntityDataService,
-    private coursesDataService: CoursesDataService,
-    private courseCacheDispatcherService: CourseCacheDispatcherService
+    eds: EntityDefinitionService,
+    entityDataService: EntityDataService,
+    coursesDataService: CoursesDataService,
+    courseCacheDispatcherService: CourseCacheDispatcherService,
+    lessonCacheDispatcherService: LessonCacheDispatcherService
   ) {
-        eds.registerMetadataMap(courseEntityMetadata);
+    eds.registerMetadataMap(courseEntityMetadata);
 
-        entityDataService.registerService(CourseEntityName, coursesDataService);
+    entityDataService.registerService(CourseEntityName, coursesDataService);
 
-        courseCacheDispatcherService.init();
+    courseCacheDispatcherService.subscribeToSignalRUpdates();
+    lessonCacheDispatcherService.subscribeToSignalRUpdates();
   }
 }
