@@ -14,7 +14,7 @@ export interface Lesson {
 
 export function compareLessons(l1: Lesson, l2: Lesson) {
 
-  const compareCourses = l1.course?.id - l2.course?.id;
+  const compareCourses = l1.course && l1.course.id - l2.course && l2.course.id;
 
   if (compareCourses > 0) {
     return 1;

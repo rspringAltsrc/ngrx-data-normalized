@@ -63,7 +63,7 @@ export class CourseComponent implements OnInit {
 
   loadLessonsPage(course: Course) {
     this.appService.lessonService.getWithQuery({
-      courseId: course?.id.toString(),
+      courseId: course && course.id.toString(),
       pageNumber: this.nextPage.toString(),
       pageSize: "1"
     });
