@@ -15,16 +15,15 @@ import { RouterModule, Routes } from "@angular/router";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
-import { RouterState, StoreRouterConnectingModule } from "@ngrx/router-store";
+import { StoreRouterConnectingModule } from "@ngrx/router-store";
 
 import { EffectsModule } from "@ngrx/effects";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { reducers } from "./reducers";
-import { EntityDataModule, EntityCacheEffects, EntityEffects } from "@ngrx/data";
+import { EntityDataModule } from "@ngrx/data";
 
-import { HttpRequestInterceptor } from "./interceptor";
 import { HttpMockRequestInterceptor } from "./interceptor.mock";
-import { CourseEntityEffects } from './courses/services/course-entity.effects';
+import { AppEntitiesModule } from './courses/services/app.entities.module';
 
 const routes: Routes = [
   {
@@ -50,6 +49,7 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     MatListModule,
     MatToolbarModule,
+    AppEntitiesModule,
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: true,

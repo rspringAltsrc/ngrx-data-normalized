@@ -6,7 +6,7 @@ import {
   EntityActionOptions
 } from "@ngrx/data";
 import { Lesson } from "../model/lesson";
-import { LessonEntityName } from "../course-entity.metadata";
+import { LessonEntityName } from "./course-entity.metadata";
 import { Observable } from 'rxjs';
 import { Course } from '../model/course';
 import { User } from '../model/user';
@@ -21,7 +21,7 @@ export class LessonEntityService extends EntityCollectionServiceBase<Lesson> {
   constructor(
     serviceElementsFactory: EntityCollectionServiceElementsFactory
   ) {
-    super(LessonEntityName, serviceElementsFactory);
+    super('Lesson', serviceElementsFactory);
   }
 
 }

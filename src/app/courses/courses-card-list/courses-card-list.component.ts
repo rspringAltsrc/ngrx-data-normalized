@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Course } from "../model/course";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { CourseEntityService } from '../services/course-entity.service';
+import { AppEntityServices } from '../services/app-entity-services';
 
 @Component({
   selector: 'courses-card-list',
@@ -15,12 +14,12 @@ export class CoursesCardListComponent {
   courses: Course[];
 
   constructor(
-    private courseService: CourseEntityService) {
+    private appEntityServices: AppEntityServices) {
   }
 
   deleteCourse(courseId: number) {
 
-    this.courseService.delete(courseId)
+    this.appEntityServices.courseService.delete(courseId)
       .subscribe(
         () => console.log("Delete completed"),
         err => console.log("Deleted failed", err)

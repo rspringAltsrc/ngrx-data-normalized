@@ -1,7 +1,7 @@
 import { schema } from 'normalizr';
-import { Course } from './model/course';
-import { Lesson } from './model/lesson';
-import { User } from './model/user';
+import { Course } from '../model/course';
+import { Lesson } from '../model/lesson';
+import { User } from '../model/user';
 
 export const coursesKey = 'courses';
 export const lessonsKey = 'lessons';

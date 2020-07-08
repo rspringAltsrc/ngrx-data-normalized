@@ -5,10 +5,10 @@ import {
   EntityDispatcher,
   MergeStrategy
 } from "@ngrx/data";
-import { CourseEntityName } from "../course-entity.metadata";
+import { CourseEntityName } from "./course-entity.metadata";
 import { of, Subscription, Observable, merge } from "rxjs";
 import { delay, map } from "rxjs/operators";
-import { EntitySchemas, coursesKey } from '../data-schema';
+import { EntitySchemas, coursesKey } from './data-schema';
 import { normalize } from 'normalizr';
 import { NormalizedType } from 'src/app/utility-types';
 

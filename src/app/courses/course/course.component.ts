@@ -5,20 +5,12 @@ import {
 } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Course } from "../model/course";
-import { Observable, merge } from "rxjs";
-import { Lesson } from "../model/lesson";
+import { merge } from "rxjs";
 import {
-  delay,
-  map,
   tap,
-  withLatestFrom,
-  combineLatest,
   scan
 } from "rxjs/operators";
-import { CourseEntityService } from "../services/course-entity.service";
-import { LessonEntityService } from "../services/lesson-entity.service";
 import { CourseSelectors } from '../services/course-entity.selectors';
-import { Store } from '@ngrx/store';
 import { AppEntityServices } from '../services/app-entity-services';
 
 @Component({

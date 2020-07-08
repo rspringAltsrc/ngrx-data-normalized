@@ -1,11 +1,11 @@
 import { createSelector, Store } from '@ngrx/store';
-import { CourseEntityName, LessonEntityName } from '../course-entity.metadata';
+import { CourseEntityName, LessonEntityName } from './course-entity.metadata';
 import { Injectable } from '@angular/core';
 import { EntitySelectorsFactory, EntityCache } from '@ngrx/data';
 import { Course } from '../model/course';
 import { Lesson } from '../model/lesson';
 import { denormalize } from 'normalizr';
-import { EntitySchemas } from '../data-schema';
+import { EntitySchemas } from './data-schema';
 
 
 @Injectable({

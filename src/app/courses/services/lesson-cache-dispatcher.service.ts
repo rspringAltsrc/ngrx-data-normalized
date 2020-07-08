@@ -5,7 +5,7 @@ import {
   EntityActionOptions,
   MergeStrategy
 } from "@ngrx/data";
-import { LessonEntityName } from "../course-entity.metadata";
+import { LessonEntityName } from "./course-entity.metadata";
 import { of, Subscription, Observable } from "rxjs";
 import { delay } from "rxjs/operators";
 import { Lesson } from '../model/lesson';

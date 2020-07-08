@@ -1,11 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Course } from '../model/course';
-import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { map, tap, filter, first } from 'rxjs/operators';
+import { tap, filter, first } from 'rxjs/operators';
+import { AppEntityServices } from '../services/app-entity-services';
 import { CourseEntityService } from '../services/course-entity.service';
-import { LessonEntityService } from '../services/lesson-entity.service';
-
 
 @Component({
   selector: 'home',
@@ -15,13 +12,13 @@ import { LessonEntityService } from '../services/lesson-entity.service';
 })
 export class HomeComponent {
 
-  courses$ = this.coursesService.entities$;
-  lessons$ = this.lessonsService.entities$;
+  courses$ = this.appEntityServices.courseService.entities$;
+  lessons$ = this.appEntityServices.lessonService.entities$;
 
-  loaded$ = this.coursesService.loaded$.pipe(
+  loaded$ = this.appEntityServices.courseService.loaded$.pipe(
     tap(loaded => {
       if (!loaded) {
-        this.coursesService.getAll();
+        this.appEntityServices.courseService.getAll();
       }
     }),
     filter(loaded => !!loaded),
@@ -29,8 +26,8 @@ export class HomeComponent {
   )
 
   constructor(
-    private coursesService: CourseEntityService,
-    private lessonsService: LessonEntityService) {
+    private appEntityServices: AppEntityServices,
+    private courseEntityServices: CourseEntityService) {
   }
 
   addPrefilledCourse() {
@@ -42,7 +39,7 @@ export class HomeComponent {
         "This is a prefilled course manually added by click using all of the data services.",
     };
 
-    this.coursesService.add(prefilledCourse, { skip: true });
+    this.courseEntityServices.add(prefilledCourse, { skip: true });
     // Shorthand
     // this.coursesService.addOneToCache(prefilledCourse);
   }

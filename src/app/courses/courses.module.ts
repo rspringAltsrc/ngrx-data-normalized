@@ -19,24 +19,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule, Routes } from "@angular/router";
-import {
-  EntityDataService,
-  EntityDefinitionService,
-  EntityCacheEffects,
-  EntityEffects,
-  EntityServices
-} from "@ngrx/data";
 
-import { CourseEntityService } from "./services/course-entity.service";
-import { CoursesDataService } from "./services/courses-data.service";
-import { LessonEntityService } from "./services/lesson-entity.service";
-import { courseEntityMetadata, CourseEntityName } from "./course-entity.metadata";
-import { CourseCacheDispatcherService } from "./services/course-cache-dispatcher.service";
-import { LessonCacheDispatcherService } from './services/lesson-cache-dispatcher.service';
-import { CourseEntityEffects } from './services/course-entity.effects';
-import { EffectsModule } from '@ngrx/effects';
-import { AppEntityServices } from './services/app-entity-services';
-import { CourseSelectors } from './services/course-entity.selectors';
 
 export const coursesRoutes: Routes = [
   {
@@ -77,28 +60,5 @@ export const coursesRoutes: Routes = [
   ],
   declarations: [HomeComponent, CoursesCardListComponent, CourseComponent],
   exports: [HomeComponent, CoursesCardListComponent, CourseComponent],
-  providers: [
-    CourseEntityService,
-    LessonEntityService,
-    CoursesDataService,
-    AppEntityServices,
-    CourseSelectors,
-    { provide: EntityServices, useExisting: AppEntityServices }
-  ]
 })
-export class CoursesModule {
-  constructor(
-    eds: EntityDefinitionService,
-    entityDataService: EntityDataService,
-    coursesDataService: CoursesDataService,
-    courseCacheDispatcherService: CourseCacheDispatcherService,
-    lessonCacheDispatcherService: LessonCacheDispatcherService
-  ) {
-    eds.registerMetadataMap(courseEntityMetadata);
-
-    entityDataService.registerService(CourseEntityName, coursesDataService);
-
-    courseCacheDispatcherService.subscribeToSignalRUpdates();
-    lessonCacheDispatcherService.subscribeToSignalRUpdates();
-  }
-}
+export class CoursesModule { }

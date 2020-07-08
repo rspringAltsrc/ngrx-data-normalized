@@ -3,7 +3,7 @@ import { EntityServicesBase, EntityServicesElements } from '@ngrx/data';
 import { CourseEntityService } from './course-entity.service';
 import { LessonEntityService } from './lesson-entity.service';
 import { Lesson } from '../model/lesson';
-import { LessonEntityName, CourseEntityName } from '../course-entity.metadata';
+import { LessonEntityName, CourseEntityName } from './course-entity.metadata';
 import { Course } from '../model/course';
 
 @Injectable()
