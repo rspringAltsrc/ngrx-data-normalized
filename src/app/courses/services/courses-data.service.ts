@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Inject } from "@angular/core";
+import { Injectable } from "@angular/core";
 import {
   DefaultDataService,
   HttpUrlGenerator,
@@ -11,10 +11,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import { CourseEntityName, LessonEntityName } from "../course-entity.metadata";
-import { INormalizedCourses } from './course-entity.service';
 import { normalize } from 'normalizr';
 import { EntitySchemas } from '../data-schema';
-import { LessonCacheDispatcherService } from './lesson-cache-dispatcher.service';
 import { Lesson } from '../model/lesson';
 
 const courseDataServiceConfig: DefaultDataServiceConfig = {
@@ -52,12 +50,7 @@ export class CoursesDataService extends DefaultDataService<Course> {
 
   }
 
-  public normalizeCourses(courses: Course[]): INormalizedCourses {
+  public normalizeCourses(courses: Course[]) {
     return normalize(courses, EntitySchemas.courses);
-  }
-
-  mapCourse(course: Course) {
-    // Here we can manipulate the incoming entity before it's save to the store.
-    return { ...course, description: course.description + " lol" };
   }
 }

@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import {
   EntityDispatcherFactory,
-  EntityDispatcher
+  EntityDispatcher,
+  EntityActionOptions,
+  MergeStrategy
 } from "@ngrx/data";
 import { LessonEntityName } from "../course-entity.metadata";
 import { of, Subscription, Observable } from "rxjs";
@@ -34,7 +36,9 @@ export class LessonCacheDispatcherService {
 
   subscribeToSignalRUpdates(): void {
     const addOne = this.mockSignalRBroadcast.subscribe(e => {
-      this.lessonDispatcher.addOneToCache(e);
+      this.lessonDispatcher.addOneToCache(e, {
+        mergeStrategy: MergeStrategy.OverwriteChanges
+      });
     });
 
     this.subscriptions.add(addOne);

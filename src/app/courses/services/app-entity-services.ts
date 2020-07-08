@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { EntityServicesBase, EntityServicesElements } from '@ngrx/data';
-import { CoursesDataService } from './courses-data.service';
 import { CourseEntityService } from './course-entity.service';
 import { LessonEntityService } from './lesson-entity.service';
 import { Lesson } from '../model/lesson';
