@@ -10,10 +10,7 @@ export const usersKey = 'users';
 const course = new schema.Entity<Course>(coursesKey);
 const courses = new schema.Array<Course>(course);
 
-const lesson = new schema.Entity<Lesson>(lessonsKey, {},
-    {
-
-    });
+const lesson = new schema.Entity<Lesson>(lessonsKey, {},);
 
 const lessons = new schema.Array<Lesson>(lesson);
 const user = new schema.Entity<User>(usersKey);
