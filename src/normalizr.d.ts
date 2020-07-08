@@ -12,6 +12,7 @@ declare namespace schema {
         idAttribute?: string | SchemaFunction
         mergeStrategy?: MergeFunction
         processStrategy?: StrategyFunction<T>
+        fallbackStrategy?: (key: string & number, schema: Schema<T>) => T
     }
 
     export class Entity<T = any> {
@@ -53,11 +54,18 @@ export interface SchemaObject<T> {
     [key: string]: SchemaValue<T>
 }
 
+export declare type NormalizedType<T> = {
+    [P in keyof T]:
+    T[P] extends boolean | string | number | Array<boolean | string | number>
+    ? T[P]
+    : T[P] extends Array<any> ? number[] : number
+};
+
 export interface SchemaArray<T> extends Array<Schema<T>> { }
 
-export type NormalizedSchema<E, R> = { entities: E, result: R };
+export type NormalizedSchema<E, R> = { entities: Record<string, E | unknown>, result: R | R[] };
 
-export function normalize<T = any, E = { [key: string]: { [key: string]: T } }, R = any>(
+export function normalize<T = any, E = Record<string, NormalizedType<T> | undefined>, R = string | number>(
     data: any,
     schema: Schema<T>
 ): NormalizedSchema<E, R>;
