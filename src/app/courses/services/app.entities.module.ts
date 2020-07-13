@@ -6,7 +6,6 @@ import {
 } from "@ngrx/data";
 
 import { courseEntityMetadata, CourseEntityName } from "./course-entity.metadata";
-import { CourseCacheDispatcherService } from "./course-cache-dispatcher.service";
 import { LessonCacheDispatcherService } from './lesson-cache-dispatcher.service';
 import { AppEntityServices } from './app-entity-services';
 import { LessonEntityService } from './lesson-entity.service';
@@ -30,14 +29,13 @@ export class AppEntitiesModule {
         eds: EntityDefinitionService,
         entityDataService: EntityDataService,
         coursesDataService: CoursesDataService,
-        courseCacheDispatcherService: CourseCacheDispatcherService,
         lessonCacheDispatcherService: LessonCacheDispatcherService
     ) {
         eds.registerMetadataMap(courseEntityMetadata);
 
         entityDataService.registerService(CourseEntityName, coursesDataService);
 
-        courseCacheDispatcherService.subscribeToSignalRUpdates();
+        coursesDataService.subscribeToSignalRUpdates();
         lessonCacheDispatcherService.subscribeToSignalRUpdates();
     }
 }

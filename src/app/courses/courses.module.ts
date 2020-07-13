@@ -19,6 +19,8 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule, Routes } from "@angular/router";
+import { StoreModule } from '@ngrx/store';
+import * as fromUser from './services/user/user-entity.reducer';
 
 
 export const coursesRoutes: Routes = [
@@ -56,7 +58,8 @@ export const coursesRoutes: Routes = [
     MatDatepickerModule,
     MatMomentDateModule,
     ReactiveFormsModule,
-    RouterModule.forChild(coursesRoutes)
+    RouterModule.forChild(coursesRoutes),
+    StoreModule.forFeature(fromUser.userEntityFeatureKey, fromUser.reducer)
   ],
   declarations: [HomeComponent, CoursesCardListComponent, CourseComponent],
   exports: [HomeComponent, CoursesCardListComponent, CourseComponent],

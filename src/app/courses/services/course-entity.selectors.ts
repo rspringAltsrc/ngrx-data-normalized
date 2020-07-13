@@ -6,6 +6,7 @@ import { Course } from '../model/course';
 import { Lesson } from '../model/lesson';
 import { denormalize } from 'normalizr';
 import { EntitySchemas } from './data-schema';
+import UserEntitySelectors from './user/user-entity.selectors';
 
 
 @Injectable({
@@ -29,16 +30,18 @@ export class CourseSelectors {
         (courses) => courses.find(course => course.url == courseUrl)
     );
 
-    createCourseLesson = (courseUrl: string) => createSelector(
+    denormalizedCourse = (courseUrl: string) => createSelector(
         this.createSelectCourse(courseUrl),
         this.setCollectionSelectors().lessonSelectors.selectEntityMap,
-        (course, lessons) => {
+        UserEntitySelectors.getAllUserEntities,
+        (course, lessons, users) => {
             const denormalizedCourse = denormalize(
                 course,
                 EntitySchemas.course,
                 {
                     courses: [course],
-                    lessons
+                    lessons,
+                    users
                 }
             ) as Course;
             return denormalizedCourse.lessons;
@@ -50,6 +53,6 @@ export class CourseSelectors {
     }
 
     selectDenormalizedCourse$(courseUrl: string) {
-        return this.store.select(this.createCourseLesson(courseUrl));
+        return this.store.select(this.denormalizedCourse(courseUrl));
     }
 }
